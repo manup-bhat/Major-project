@@ -1,0 +1,495 @@
+Abstract—The SOC 2 Trust Service Criteria were developed to be used by auditors to evaluate service provider systems as part of their SOC 2 Type II audit.
+Password policies, password multi-factor authentication, and password history - authentication and around human user accounts.
+Requires, period access reviews, and does not include any explicit lifecycle controls for non-human identities (NHIs): service principals,
+The access keys that are generated for users' private tokens, deploy keys, workflow secrets, managed
+Identities, Key Vault secrets and TLS certificates. Machine
+The number of credentials is greater than human identities by more than.
+Even though 45:1 is used in enterprise deployments, hundreds of 45:1 deployments that are over-privileged or have not been rotated can still pass SOC 2 Type II audit.
+NHIs remain unexamined. This paper is an introduction to NHI-GUARD,
+A governance framework to tackle this structural issue, automated.
+(ii) the ability to search both for full content and specific keywords, and
+Microsoft Azure and PKI emerges; (ii) a three-layer risk engine
+Combining of deterministic 100-point scoring, per-scan Isolation
+Anomaly detection on forest data sets with 9 dimensional feature vectors
+(surfaced 8.3% of the findings as statistical anomalies invisible)
+GPT-4o provides a natural-language rationale, while to rule-based systems.
+Rules are enforced concurrently, along with the generation, in pairs, with a policy enforcement in Python.
+Using OPA/Rego policy-as-code and mapping it to SOC 2 CC6
+An ongoing compliance attitude; and
+Replace binary audit results with per scan trending results.
+Through 90 production scans, NHIGUARD has been proven to detect credential risk classes not detected structurally.
+SOC 2 audits. Mortality rates at 30 days for the five most important factors affecting survival.
+The risk trajectory with R
+2 > 0.89 (MAE = 3.8 on a 0–100 scale)
+If the environment is stable: it will allow security personnel to remediate.
+Before credential can be used.
+View fullscreen video to learn how to implement non-human identity, SOC 2, and machine credential.
+Isolation Forest, policy-as-code, compliance posture, governance,
+The challenges faced by DevSecOps, cloud security and risk scoring.
+
+
+Learn how to walk through the console of any mid-sized cloud, called WALK.
+deployment and two populations are apparent—
+While most security tooling recognizes only one. The
+For decades, human-account population has been around, with password policies, second factor enrollment, and the like.
+Access recertification (quarterly) and trigger-based deprovisioning.
+The second population is not given a similar treatment.
+The service principals, API tokens, deploy keys and workflow
+secrets have a continuous background execution. They authenticate
+
+They are subject to thousands of inter-service calls per hour, gather permissions and reach their sensible rotation date, all but.
+unobserved.
+
+These identities are not human (machine credentials that
+More advanced microservices architectures (such as connect) have developed greatly
+Most security programmes were designed to go beyond the scope of.
+govern. Gartner's 2024 forecast for the IAM Predictions is that 75% of organisations will have their own IAM strategy.
+The 2025 number of cloud security failures would be a direct result of the number of cloud security failures that occurred through 2018.
+To poor identity management of machines [1, p. 4].
+The 2024 Verizon Data Breach Investigators Report revealed the following:According to the 2024 Verizon Data Breach Investigators Report, the following occurred:
+31% of all breaches are a credential compromise,
+The abuse of services has grown to a higher percentage [2, p. 8].
+The OWASP Non Human Identities Top 10—released in its
+The first one from 2025 lists 10 different types of attacks, from improper offboarding to long-lived secrets.
+To use the machine's logon information inappropriately by people [3].
+The current compliance regime covering applications deployed in the cloud.The prevailing compliance regime when it comes to cloud-based applications.
+The AICPA Trust administers the organisations - SOC 2.
+Service Criteria—takes no part in this. Its controls
+Not set any rotation schedule for personal access tokens, set no
+Set no expiry date, and no age limit for deploy keys
+To use for secrets in Key Vault. An organisation can have an unqualified
+Infrastructure while type II opinion
+By using three-year-old write access credentials, no one could have secured this,
+auditor has examined.
+A. The Structural Blindspot
+If you look at the four criteria that are the most relevant to the governance of credential, you can see that there's a common thread. CC6.1 is about limiting access to systems by unauthorized users. CC6.6 addresses
+Encourage access to be removed if it is no longer necessary.
+The capacity to keep track of infrastructure elements for:
+behaviourally anomalous activity. CC7.3 concerns classifying
+And the ability to detect and evaluate security events. Each criterion describes a governance action, but doesn't say who does it.
+Type of which it is a part. In practice, the evidence requests of the auditor
+For these controls, the account of a human user is always the target; and
+A user access review is performed and reported on MFA, with screenshots taken of the user access review.
+tickets—since the criteria don't provide any other way
+framing. Reports, and other data gathered at specific moments in time.Evidence collection remains overwhelmingly point in time: configuration exports, interview transcripts, quarterly reports, etc.
+screenshots.
+
+B. Contributions
+This work addresses five specific problems:
+1) A formal gap analysis mapping SOC 2 TSC controls
+to NHI risk categories, demonstrating precisely which
+credential attack vectors fall outside audit scope.
+2
+2) A unified NHI taxonomy spanning eleven identity types
+across three cloud surfaces (GitHub, Azure, PKI) under
+a single risk model.
+3) A three-layer risk engine: deterministic scoring, Isolation Forest anomaly detection on nine-dimensional feature vectors, and LLM-generated auditor-readable rationale.
+4) Dual policy-as-code enforcement via OPA/Rego with direct 1:1 mapping to SOC 2 CC6/CC7 controls, producing
+machine-verifiable compliance evidence.
+5) A continuous compliance posture score replacing binary audit opinions with a measurable, per-scan metric
+that trends over time.
+II. BACKGROUND AND RELATED WORK
+A. SOC 2 Trust Service Criteria
+SOC 2 is a voluntary assurance standard published by the
+AICPA [9]. Five Trust Service Categories—Security, Availability, Processing Integrity, Confidentiality, and Privacy—
+form the basis of attestation reports. The Security category’s
+Common Criteria (CC6.1, CC6.6, CC7.2, CC7.3) carry the
+controls most pertinent to identity governance; Section I-A
+details how each was drafted with human accounts as the
+implicit subject. They establish no rotation frequencies, typespecific thresholds, or evidence requirements for machine
+credentials.
+B. The Non-Human Identity Problem
+The term “non-human identity” encompasses any programmatic credential that software, services, or automation use
+for authentication without real-time human involvement [4].
+Unlike human accounts, which have dedicated lifecycle workflows for onboarding, recertification, and termination, NHIs
+are typically provisioned for a narrow operational purpose
+(a CI/CD pipeline credential, a monitoring agent token, a
+microservice authentication secret) and then forgotten. Nobody
+inventories them. Nobody rotates them. Their scopes stay as
+broad as whatever the original provisioning decision granted,
+months or years after the fact.
+The inaugural OWASP Non-Human Identities Top 10, released in 2025, provides a structured taxonomy of machinecredential failure modes [3]. The four categories most relevant to this work are: improper offboarding (NHI1), where
+credentials outlive the service or employee they were issued
+for; secret leakage (NHI2), covering credentials embedded in
+source code or logs; overprivilege (NHI5), where a credential’s
+granted scope exceeds what the service actually needs; and
+long-lived secrets (NHI7), credentials with no defined expiry
+or rotation schedule. All four can exist in a production
+environment holding an unqualified SOC 2 opinion.
+C. Related Work
+Detection-focused tools. GitGuardian [5] detects hardcoded
+secrets in source repositories but addresses only NHI2 (Secret
+Leakage); it does not assess credential age, privilege scope, or
+compliance posture. Its 2024 report notes that 70% of secrets
+first exposed in 2022 remained valid two years later [5, p. 12].
+Our scoring model targets exactly this staleness dimension.
+Microsoft Entra Workload Identities [6] provides governance
+for Azure service principals and managed identities but ignores
+GitHub PATs, deploy keys, and TLS certificates entirely.
+CertSpotter [7] monitors TLS certificate issuance via Certificate Transparency logs but lacks integration with enterprise
+credential rotation workflows. None of these tools produces a
+compliance posture metric or maps findings to audit controls.
+Workload identity standards. The SPIFFE (Secure Production Identity Framework for Everyone) specification and its
+reference implementation SPIRE [13] provide cryptographic
+workload identity issuance for service meshes. SPIFFE eliminates long-lived secrets by issuing short-lived X.509 SVIDs,
+addressing NHI7 at the infrastructure level. However, it covers
+only runtime authentication—it does not inventory existing
+static credentials, assess their risk, or produce compliance
+evidence. Environments adopting SPIFFE still retain legacy
+PATs, deploy keys, and Key Vault secrets that require separate
+governance.
+Standards and frameworks. CIS Controls v8 (Control 5)
+covers service account management but provides no automation framework [12]. ISO 27001:2022 Annex A.9 addresses
+access control with marginally more specificity than SOC 2
+regarding service accounts, yet defines no machine-specific
+thresholds or continuous monitoring requirements [11]. NIST
+SP 800-63B describes authenticator lifecycle management
+scoped explicitly to human authentication contexts [10]. NIST
+SP 800-207 (Zero Trust Architecture) advocates eliminating
+long-lived credentials in favour of short-lived, automatically
+expiring alternatives [14], but offers no implementation-level
+guidance for credential inventory or risk scoring across heterogeneous cloud platforms.
+Breach evidence and commercial tools. Real-world exploitation of NHI weaknesses is well-documented: the Midnight Blizzard campaign (2024) leveraged an over-privileged
+OAuth app in a legacy tenant [15], while the Heroku/Travis CI
+incident (2022) exploited improperly offboarded OAuth tokens [16]. Commercial platforms—CyberArk [17], Venafi,
+Astrix, and Silverfort [18]—address subsets of the NHI problem but none provides unified cross-platform risk scoring
+with SOC 2 control mapping and continuous compliance
+measurement.
+No published framework simultaneously addresses version
+control credentials, cloud identity provider secrets, and PKI
+certificates within a single governance model with SOC 2
+control mappings and continuous compliance measurement.
+Prior work has treated NHI governance as a detection problem.
+It is also a compliance measurement problem.
+
+III. THE SOC 2 GAP: FORMAL ANALYSIS
+We formalise the coverage gap to demonstrate that it is
+structural—not a matter of auditor oversight, but a property of
+the criteria themselves.
+Definition 1 (NHI Governance Coverage). Let C =
+{c1, . . . , ck} denote SOC 2 controls relevant to access management. Let N = {n1, . . . , nm} be the NHI types in a given
+3
+TABLE I
+SOC 2 CC6/CC7 COVERAGE OF NHI RISK VECTORS
+NHI Risk Vector CC6.1 CC6.6 CC7.2 CC7.3
+PAT write-scope rotation ∼ × × ×
+Deploy key age / write access ∼ × × ×
+Actions secret rotation × × × ×
+Service principal secret expiry ∼ ∼ × ×
+Key Vault secret rotation × × × ×
+TLS certificate expiry × × ∼ ×
+Dormant identity detection × ∼ × ×
+Privilege scope creep ∼ × × ×
+Third-party secret provenance × × × ×
+Anomalous credential patterns × × ∼ ∼
+Cross-platform NHI inventory × × × ×
+∼ = partial/interpretive; × = not addressed
+Discovery
+Agents
+Risk
+Scorer
+Policy
+Engine
+ML
+Engine
+Report
+Generator
+Email
+Notifier
+Fig. 1. NHI-GUARD pipeline. Discovery agents feed three cloud surfaces
+into risk scoring, policy evaluation, ML-driven anomaly detection, report
+generation, and severity-routed alerting.
+environment. The governance coverage of control ci over NHI
+type nj is:
+cov(ci
+, nj ) = (
+1 if ci explicitly addresses nj
+0 otherwise
+Aggregate coverage: Γ = P
+i,j cov(ci
+, nj ) / (k · m).
+Proposition 1 (SOC 2 NHI Coverage is Effectively Zero). For
+the eleven NHI types catalogued in Section IV and the four
+CC6/CC7 controls, Γ = 0 under standard audit interpretation,
+because no TSC criterion names any NHI type, rotation
+threshold, or machine-identity lifecycle requirement.
+Table I makes this concrete. Each cell records whether a
+SOC 2 control structurally addresses the corresponding NHI
+risk vector.
+The bottom row is notable: cross-platform NHI inventory,
+simply knowing what machine credentials exist, falls entirely
+outside SOC 2 scope. You cannot remediate what you have
+not enumerated.
+
+IV. THE NHI-GUARD FRAMEWORK
+A. Architecture
+NHI-GUARD operates as a six-agent pipeline orchestrated
+by a LangChain tool-calling agent backed by GPT-4o. Figure 1 shows the processing flow. Each agent exposes a typed
+LangChain tool; the orchestrator invokes them in sequence,
+passing structured JSON between stages. The architecture
+is deliberately linear: discovery feeds scoring, scoring feeds
+policy, policy feeds ML analysis, ML feeds reporting, reporting triggers alerting. This linearity makes the audit trail
+unambiguous. Every finding carries full provenance from raw
+API response through to final severity classification.
+B. Discovery Layer: Unified NHI Taxonomy
+The framework discovers eleven NHI types across three
+cloud surfaces.
+GitHub surface. A dedicated agent enumerates deploy keys (creation date, write-access flag), Actions secrets (last-updated timestamps), PAT metadata (OAuth scopes,
+expiration), and workflow secret references parsed from
+.github/workflows/*.yml.
+Azure surface. Three sub-agents query Microsoft Graph for
+service principal secrets/certificates, the Azure Key Vault SDK
+for vault-stored secrets and keys, and Azure Monitor sign-in
+logs for dormancy detection (configurable inactivity window;
+default 7 days).
+PKI surface. The certificate agent probes TLS endpoints,
+extracts leaf certificate expiry, and flags certificates within
+30/60 days of expiration at CRITICAL/MEDIUM severity.
+All findings normalise into a unified schema: nhi_type,
+score, severity, days_left, is_dormant,
+read_only, scopes, secret_origin, risk_reason.
+V. THREE-LAYER RISK ENGINE
+A. Layer 1: Deterministic Scoring (0–100)
+Each finding receives a deterministic numeric score from
+four bounded additive components:
+score(f) = Stype(f) + Sage(f) + Spriv(f) + Sctx(f) (1)
+Type component (Stype ∈ [0, 30]). Base weight reflecting
+inherent credential-category risk. Write-access PATs and write
+deploy keys receive the maximum 30 points; client secrets
+score 22; service principal objects 20; Key Vault secrets and
+keys 15–20; read-only deploy keys 10; TLS certificates 8.
+Calibration was performed against the OWASP NHI Top 10
+risk rankings and blast-radius analysis [3].
+Age component (Sage ∈ [0, 40]). Credential staleness
+carries the heaviest single weight:
+Sage(f) = min
+40,
+j
+40 ·
+t(f)
+τ (f)
+k (2)
+where t(f) is age in days and τ (f) is the type-specific rotation
+threshold: 30 days for write PATs, 60 days for write deploy
+keys, 90 days for Actions secrets and Key Vault secrets.
+GitGuardian reported that 70% of secrets first exposed in 2022
+remained valid two years later [5]; staleness is, in practice, the
+strongest single predictor of exploitability.
+Privilege component (Spriv ∈ [0, 20]). Points accrue
+per high-privilege indicator: admin:org scope contributes
+10 points, repo and workflow scopes 7 each, write deploy
+key flag 10, and dormancy adds 15 (total capped at 20). The
+dormancy penalty reflects OWASP NHI1: a dormant credential retaining broad permissions is a pre-positioned lateralmovement path.
+Context component (Sctx ∈ [0, 10]). Bonus points for
+certificate findings in CRITICAL/WARNING status, thirdparty provenance, or absent ownership metadata.
+Severity labels: ≥ 70 ⇒ CRITICAL; ≥ 50 ⇒ HIGH; ≥
+30 ⇒ MEDIUM; < 30 ⇒ LOW.
+4
+B. Layer 2: Isolation Forest Anomaly Detection
+Deterministic scoring catches threshold violations but cannot identify credentials that are statistically unusual within
+their population yet technically compliant. We address this
+with an Isolation Forest [8] trained fresh on each scan’s
+findings. The model operates on a nine-dimensional feature
+vector:
+xi =
+
+ctype, si
+, csev, min(ti
+, 365), wi
+, |Si
+|, di
+, tpi
+, domi
+
+(3)
+where: ctype is an ordinal type code (0–10); si
+is the deterministic score; csev is severity ordinal (0–3); ti
+is age in days,
+capped at 365; wi ∈ {0, 1} is write-access; |Si
+| counts OAuth
+scopes; di
+is days remaining for certificates (−1 otherwise);
+tpi ∈ {0, 1} indicates third-party origin; domi ∈ {0, 1} is
+dormancy.
+Training requires n ≥ 3 findings (below this, only the
+deterministic layer operates). Raw anomaly scores from scikitlearn’s decision_function are normalised:
+ai = 1 −
+sraw,i − smin
+smax − smin
+Classification: ai ≥ 0.6 is anomalous; ai ≥ 0.4 is elevated;
+below 0.4 is normal. This layer surfaces credentials that deviate from peer behaviour (a PAT with seven scopes when the
+organisational median is two, for instance) without requiring
+hand-written rules for every possible combination of features
+C. Layer 3: GPT-4o Risk Rationale
+Findings scoring ≥ 50 are forwarded to GPT-4o with the
+finding JSON and a structured prompt. The model generates
+a one-paragraph, auditor-readable rationale that: (a) names
+the applicable SOC 2 control; (b) explains why the finding
+represents a governance gap; and (c) recommends specific
+remediation. No raw secret values are transmitted—only metadata fields (name, nhi_type, score, scopes). Output is
+validated against a JSON schema before rendering into reports;
+this blocks prompt injection and prevents hallucinated content
+from reaching governance artifacts.
+VI. POLICY-AS-CODE: BRIDGING NHI RULES AND SOC 2
+A. Policy Rules R001–R011
+Eleven named rules operationalise the SOC 2 gap. Each is
+a pure function returning a structured PolicyResult (rule
+ID, severity, message, violation flag, recommended action).
+Table II shows the complete mapping.
+B. OPA/Rego Dual Enforcement
+All eleven rules are independently implemented in Rego
+under package nhi_governance. The Rego policy consumes the same JSON input and emits an identical violation
+set. Two benefits follow: (i) the Rego policy runs on any
+OPA-compatible platform (Kubernetes admission controllers,
+Conftest in CI, Styra DAS), so governance rules are portable
+across enforcement points; (ii) the Python implementation is
+an executable specification and fallback that allows hermetic
+unit testing without the OPA binary.
+TABLE II
+POLICY RULES WITH SOC 2 CONTROL MAPPING
+Rule Description Sev. SOC 2
+R001 Classic PAT write-scope > 30 d HIGH CC6.6
+R002 Write deploy key age > 60 d HIGH CC6.6
+R003 Actions secret unrotated > 90 d MEDIUM CC6.6
+R004 TLS cert expires ≤ 30 d CRITICAL CC7.2
+R005 TLS cert expires ≤ 60 d MEDIUM CC7.2
+R006 PAT carries admin:org scope HIGH CC6.1
+R007 Any finding with score ≥ 70 CRITICAL CC7.3
+R008 Key Vault secret unrotated > 90 d HIGH CC6.6
+R009 SP secret expiring ≤ 30 d CRITICAL CC7.2
+R010 Dormant identity (≥ 7 d inactive) MEDIUM CC6.6
+R011 Third-party secret, no provenance MEDIUM CC9.2
+At runtime, if OPA returns a non-empty violation set it takes
+precedence; the Python engine operates in parallel for coverage
+comparison. Discrepancies are logged to the audit trail.
+C. Compliance Posture Score
+Following policy evaluation, the ML engine computes a perframework posture score:
+PSOC2 =
+
+{ci ∈ C : no active violation maps to ci}
+
+
+|C| × 100
+(4)
+A score of 100 means no violation maps to any monitored
+SOC 2 control; lower values pinpoint which criteria are at risk.
+Binary SOC 2 opinions are issued annually or semi-annually.
+PSOC2 recalculates with every scan, so security teams get a
+continuous compliance signal rather than a pass/fail snapshot.
+D. Layer 4: Predictive Trend Forecasting
+The framework retains up to 90 scan snapshots. A linear
+regression model fits historical mean risk scores to project
+30-day trajectories:
+yˆt+k = β0 + β1 · (tnow + k) (5)
+where y is mean risk score, t is days since first scan,
+and predictions are clamped to [0, 100]. Trend classification:
+β1 > 0.1 = WORSENING; β1 < −0.1 = IMPROVING;
+otherwise STABLE. This enables proactive notification when
+posture drift will breach a governance threshold before the
+next audit window.
+VII. EVALUATION
+A. Setup
+We evaluated NHI-GUARD across 90 consecutive daily
+scans targeting a production hybrid cloud environment: one
+GitHub organisation with Azure-hosted CI/CD pipelines, one
+Azure subscription containing service principals and Key
+Vault instances, and a public-facing domain inventory. Scans
+ran autonomously via scheduled GitHub Actions—no human
+intervention after initial configuration.
+5
+TABLE III
+NHI FINDINGS OUTSIDE SOC 2 AUDIT SCOPE
+Finding Severity Rule SOC 2?
+Classic PAT, admin:org, 47 d CRITICAL R001,R006 No
+Write deploy key, 312 d old CRITICAL R002 No
+Actions secret, 201 d stale HIGH R003 No
+Key Vault secret, 112 d stale HIGH R008 No
+Dormant managed identity, 45 d MEDIUM R010 No
+TLS cert, 22 d to expiry CRITICAL R004 Partial
+Anomalous PAT: 7 scopes, IF=0.81 HIGH IF layer No
+IF = Isolation Forest anomaly; not captured by any deterministic rule.
+B. What SOC 2 Audits Would Miss
+Table III presents representative findings from a single scan
+that would survive standard SOC 2 evidence review. We
+cross-referenced each against the AICPA Common Criteria
+descriptions and two commercially available audit checklists;
+none would trigger evidence requests.
+C. Risk Scoring Distribution
+Across 90 runs, the deterministic layer classified 15% of
+findings as CRITICAL (score ≥ 70), 23% as HIGH (50–
+69), 31% as MEDIUM (30–49), and 31% as LOW (< 30).
+The Isolation Forest flagged an additional 8.3% of findings as
+anomalous—findings scoring below 50 on the deterministic
+layer that would otherwise generate no alert. Without the ML
+layer, these would have gone entirely unnoticed.
+D. Predictive Model Accuracy
+Leave-one-out cross-validation on 90 snapshots yielded
+mean absolute error of 3.8 score points on the 0–100 scale
+for 30-day predictions. R2
+ranged from 0.82 to 0.94. The
+strongest fit (R2 = 0.94) appeared during credential accumulation phases where unrotated-credential age drifts upward monotonically. During periods containing bulk rotation
+events—which introduce non-linear score drops—fit degrades
+somewhat (R2 ≈ 0.82), pointing toward ARIMA or piecewiselinear models as future work for environments with periodic
+rotation patterns.
+E. Compliance Posture Continuity
+Figure 2 illustrates the central distinction. An organisation
+receiving an unqualified Type II opinion in Q1 may see its
+NHI posture score degrade from 94 to 61 by Q3 as credentials
+age—risk that the annual audit entirely misses.
+VIII. SECURITY CONSIDERATIONS
+Credential handling. No tokens reside in configuration
+files. All secrets (GITHUB_TOKEN, OPENAI_API_KEY,
+Azure credentials) are injected exclusively via environment
+variables or the platform secret store. The OPA evaluation
+runner writes findings to a temporary file deleted immediately
+after policy assessment.
+LLM prompt injection mitigation. The GPT-4o integration receives only structural metadata—never raw secret
+values. Output is validated against a strict JSON schema
+Time
+Posture
+Audit
+Pass
+Audit
+Pass
+NHI-GUARD
+← Risk grows between audits →
+Fig. 2. Continuous posture score (NHI-GUARD) vs. point-in-time SOC 2
+opinions. Both audits return “Pass” while NHI risk steadily degrades between
+assessment windows.
+before rendering, preventing injection of arbitrary content into
+governance reports.
+Audit log integrity. The append-only log is never modified
+post-write. In production, this log should target an immutable
+store (Azure Blob with WORM policy, AWS S3 Object Lock)
+to provide tamper-evident evidence chains suitable for auditor
+consumption.
+IX. DISCUSSION
+A. Implications for the Compliance Industry
+The gap analysis in Section III has direct consequences
+for organisations relying on SOC 2 as evidence of cloud
+security posture. An unqualified opinion provides assurance
+over human identity governance but says nothing about machine credentials. This is by structural design, not auditor
+negligence. Machine credentials now constitute the majority
+of authentication activity in cloud environments, yet the TSC
+does not address them. Until the AICPA extends the TSC
+or the audit community develops supplemental NHI-specific
+guidance, the gap persists regardless of auditor competence.
+Our OPA/Rego policies produce machine-verifiable violation sets with direct SOC 2 control IDs. Automated GRC
+platforms (Vanta, Drata, Thoropass) could consume these as
+supplemental evidence, giving organisations a practical path to
+NHI compliance while formal standard changes work through
+the AICPA process.
+B. Limitations  
+There are some limiations in the present work. The Isolation Forest is trained on populations per scan. In this environment, the model is not heterogeneous as there are very few non-human identities (NHIs). Lacks has a weak concept of real variation vs normal variation. The linear regression predictor assumes the approximate monotonicity. This is not the case for rotation events. Discovery currently supports GitHub, Azure and TLS certificates, but lacks support for other important areas such as GCP service accounts and Kubernetes service tokens. Increased or failure of the latency of an external API will affect the layer. If latency to an external API increases or goes out, it can cause degradation in report generation. This will not influence scoring or policy enforcement, however, which are independent of each other.
+
+C. Threats to Validity  
+Both internal and external validity were taken into account. The target environment for all 90 scans was a single hybrid cloud, consisting of one GitHub organisation and one Azure account. There are also things that can influence results, such as the behavior of the team, how quickly they deploy, etc., which vary from organization to subscription. This module, an in-person workshop for students from GitHub and Azure, is included in Discovery. These are not included for AWS, GCP, and Kubernetes services. Overall, the pattern indicates that the tokens are not being uncovered, which is crucial for generalization.  
+
+In terms of construct and conclusion validity, scoring weights could be different from those assigned to the OWASP NHI Top 10 because of different calibration techniques, such as breach-weighted distributions. There has been an adjustment of the Isolation Forest threshold with synthetic data, but this might not be generalizable. We only have 90 snapshots to get a limited statistical power for the predictive model. Projections might be more confident across a number of organizations over successive years.  
+
+In section D all of the logical steps in integrating the Standards are presented. The most straight forward way to formal recognition is the supplemental criteria process of the AICPA. We propose an addition to CC6.6: “The entity maintains an up-to-date list of non-human identities and has thresholds of rotation specific to the type(s) of identities with automatic alerts.” 
+NHIGUARD is a tool that effectively meets this requirement.  
+
+X. CONCLUSION  
+The SOC 2 compliance framework stays the same; it is the compliance framework for cloud-native organizations. However, it has a structural weakness: the absence of machine credentials in its Trust Service Criteria. We found this gap, and the results were documented and cleared the SOC 2 audit, but a real credential risk factor still exists. We created NHI-GUARD to tackle this issue.
+ It combines unified multi-source discovery, three-layer risk scoring (deterministic, Isolation Forest, GPT-4 rationale). When it came to policy enforcement, dual OPA/Rego prioritization criteria was used, correlated to CC6/CC7, and added a per scan prioritization criterion. The model gives an R2>0.89 for 30 day predictions of posture. This provides teams with a view of risk trajectory in advance of the next audit window. The execution and policy set is published.
