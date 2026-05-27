@@ -1,0 +1,162 @@
+Here is the complete, definitive guide for your specific situation — covering every major venue format.
+
+---
+
+## The #1 Rule First: Never Use "Dr." or "Prof."
+
+IEEE explicitly requires full author names **without titles such as Dr. or Prof.** [Speedypaper](https://speedypaper.com/blog/ieee-format) The same rule applies at Elsevier, Springer, and ACM. Your current paper has "Dr. Merin Meleet" and "Dr. Chethana Murthy" — this must be removed for every venue. Write only the full name.
+
+---
+
+## Author Order — Who Goes First?
+
+Your situation is standard in CS/engineering academia: two student-authors + two supervisor-guides.
+
+The universal convention is:
+- **Students who did the work → first**
+- **Supervisors/guides → last**
+
+For your paper, the correct order is:
+
+```
+Manu Prakash Bhat, Umang Mishra, Merin Meleet, and Chethana Murthy
+```
+
+Since Merin is Manu's guide (both IS&E) and Chethana is Umang's guide (both CS&E), you can pair them or list all four linearly — both are acceptable. The guide who will handle all correspondence with the journal becomes the **Corresponding Author**, marked with a symbol (∗ or †).
+
+---
+
+## Format by Venue — Side by Side
+
+### 1. IEEE (Conferences and Transactions)
+
+IEEE requires the full name, institutional affiliation, and email address, without titles. [Speedypaper](https://speedypaper.com/blog/ieee-format) For authors with different affiliations, group authors sharing the same affiliation together; list affiliations in the order of the first author for each location. Email addresses are separated by semicolons. [IEEE Author Center](https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE-Editorial-Style-Manual-for-Authors.pdf)
+
+Since your four authors span **two departments at the same institution**, the correct IEEE format is:
+
+```
+Manu Prakash Bhat and Merin Meleet
+Department of Information Science and Engineering,
+RV College of Engineering, Bengaluru 560059, India
+Email: {manuprakashb.is22, merin.meleet}@rvce.edu.in
+
+Umang Mishra and Chethana Murthy
+Department of Computer Science and Engineering,
+RV College of Engineering, Bengaluru 560059, India
+Email: {umangmishra.cs22, chethana.murthy}@rvce.edu.in
+```
+
+> Note: Curly-bracket group emails `{name1, name2}@domain` are standard IEEE style when two people share the same domain.
+
+**For IEEE Transactions journals**, affiliations are written as prose in the first footnote: "First A. Author is with the Department of..., Institution, City, Country (e-mail: author@domain)." [arxiv](https://ar5iv.labs.arxiv.org/html/2406.09001) That is a journal-specific requirement, not for conference papers.
+
+**Corresponding author** in IEEE is marked with an asterisk after the name in the byline, e.g., `Merin Meleet*`, and noted in the footnote as "Corresponding author."
+
+---
+
+### 2. Elsevier (Computers & Security, JISA, etc.)
+
+Elsevier requires affiliation addresses below author names, using a **lowercase superscript letter** immediately after the author's name and in front of the corresponding address. You must provide the full postal address of each affiliation, including the country name and, if available, the email address of each author. [ScienceDirect](https://www.sciencedirect.com/journal/system/publish/guide-for-authors)
+
+```
+Manu Prakash Bhata, Umang Mishrab, Merin Meleeta,∗, Chethana Murthyb
+
+a Department of Information Science and Engineering, RV College of Engineering,
+  Bengaluru 560059, Karnataka, India
+
+b Department of Computer Science and Engineering, RV College of Engineering,
+  Bengaluru 560059, Karnataka, India
+
+∗ Corresponding author. Email: merin.meleet@rvce.edu.in
+```
+
+The corresponding author must be clearly indicated — this person handles all correspondence at all stages of refereeing, publication, and post-publication. [ScienceDirect](https://www.sciencedirect.com/journal/system/publish/guide-for-authors)
+
+**Email policy at Elsevier:** The corresponding author's email is **mandatory**. Other authors' emails are recommended but not strictly required.
+
+---
+
+### 3. Springer (LNCS, journals on SpringerLink)
+
+Springer requires a clear indication and an active email address of the corresponding author. If address information is provided with the affiliation it will also be published. [Springer](https://link.springer.com/journal/11145/submission-guidelines)
+
+Springer LNCS (used for most CS conferences) format:
+
+```
+Manu Prakash Bhat¹, Umang Mishra², Merin Meleet¹(✉), and Chethana Murthy²
+
+¹ Department of Information Science and Engineering,
+  RV College of Engineering, Bengaluru, India
+  merin.meleet@rvce.edu.in
+
+² Department of Computer Science and Engineering,
+  RV College of Engineering, Bengaluru, India
+```
+
+> The `(✉)` symbol after the corresponding author's name is Springer LNCS convention.
+
+---
+
+### 4. ACM (CCS, CODASPY, etc.)
+
+ACM uses numbered superscripts. Authors from the same department can share a single affiliation block, with emails listed together using curly-bracket notation. [arxiv](https://arxiv.org/html/2404.13478v1)
+
+```
+Manu Prakash Bhat¹, Umang Mishra², Merin Meleet¹, Chethana Murthy²
+
+¹Department of Information Science and Engineering
+ RV College of Engineering, Bengaluru, India
+ {manuprakashb.is22, merin.meleet}@rvce.edu.in
+
+²Department of Computer Science and Engineering
+ RV College of Engineering, Bengaluru, India
+ {umangmishra.cs22, chethana.murthy}@rvce.edu.in
+```
+
+---
+
+## Is Email Required? — Summary Table
+
+| Venue | Corresponding Author Email | Other Authors' Emails |
+|-------|---------------------------|----------------------|
+| IEEE Conference | Recommended (standard practice) | Optional |
+| IEEE Transactions | Required in footnote | Required in footnote |
+| Elsevier | **Mandatory** | Recommended |
+| Springer LNCS | **Mandatory** | Optional |
+| Springer Journals | **Mandatory** | Recommended |
+| ACM | Required | Optional |
+
+**Practical advice:** Always include all four emails. It costs nothing, satisfies every venue's requirements, and makes it easy for reviewers or editors to contact any author.
+
+---
+
+## Department Name — Correct vs. Common Mistakes
+
+Your current department names are fine but watch these:
+
+| Issue | Wrong | Correct |
+|-------|-------|---------|
+| Abbreviation | Dept. of IS&E | Department of Information Science and Engineering |
+| City spelling | Bangalore | Bengaluru (official name since 2014 — use this) |
+| Country | India (alone) | Bengaluru 560059, Karnataka, India |
+| PIN code | Missing | Include — 560059 |
+
+Full correct affiliation line:
+```
+Department of Information Science and Engineering,
+RV College of Engineering, Bengaluru 560059, Karnataka, India
+```
+
+---
+
+## Quick Reference: What Your Paper Currently Does Wrong
+
+| Issue | Current Paper | Correct |
+|-------|--------------|---------|
+| Titles | "Dr. Merin Meleet" | "Merin Meleet" |
+| Affiliation symbol | ∗ and † mixed | Use numbers (1, 2) for most venues |
+| No corresponding author marked | Missing | Must mark one author with ∗ or ✉ |
+| Email only for student authors | Only Manu and Umang emails shown | Add guide emails too |
+| "Karnataka" missing | Not in affiliation | Include state for full postal address |
+
+The safest universal format — works for IEEE, Elsevier, Springer, and ACM with only minor symbol changes — is the **numbered superscript** system shown in the Elsevier block above. Use that as your master version and adapt the symbols per venue.
