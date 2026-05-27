@@ -1,0 +1,13 @@
+\addcontentsline{toc}{chapter}{Abstract}
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[line width = 4pt] ($(current page.north west) + (0.75in,-0.75in)$) rectangle ($(current page.south east) + (-0.75in,0.75in)$);
+\end{tikzpicture}
+
+The rapid expansion of cloud-native architectures and DevOps automation has driven an exponential increase in Non-Human Identities (NHIs) such as service principals, API keys, deploy tokens, and managed identities, which now outnumber human users by ratios exceeding 45:1 in enterprise environments. The OWASP NHI Top~10 (2025) indicates that 70\% of organisations maintain plaintext secrets in repositories, while credential-based attacks consistently rank among primary breach vectors. This security gap motivated the development of an autonomous governance agent for continuously discovering, classifying, and managing NHIs across cloud ecosystems.
+
+The project implemented a four-layer modular architecture using Python~3.11. The discovery layer employed five specialised agents interfacing with Microsoft Graph API, GitHub REST API, Azure Key Vault SDK, and SSL/TLS connections to enumerate credentials across GitHub and Azure environments. A deterministic risk scoring engine quantified each identity on a 100-point composite scale combining type weight, credential age, privilege scope, and dormancy signals, supplemented by Isolation Forest anomaly detection and linear regression trend prediction. Policy enforcement operated through eleven codified rules in Python and OPA Rego. The remediation layer provided automated credential rotation via Ed25519 key generation and PyNaCl sealed-box encryption. A React~19 TypeScript dashboard delivered real-time monitoring across eleven interactive pages.
+
+The system achieved 82\% unit test coverage and completed full-scan cycles of 500 repositories in approximately 61~seconds. The policy engine identified violations across all eleven rules, with the ML anomaly detector achieving reliable separation of high-risk credentials. Compliance scoring against SOC~2, ISO~27001, NIST~CSF, and CIS Benchmarks provided automated audit-readiness assessment, measurably reducing the attack surface from NHI sprawl.
+
+\vfill
+\newpage
